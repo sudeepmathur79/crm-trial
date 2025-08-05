@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple CRM</title>
+</head>
+<body>
+  <h2>Add Customer</h2>
+  <form id="customerForm">
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="text" name="phone" placeholder="Phone" required><br>
+    <button type="submit">Add Customer</button>
+  </form>
+
+  <h2>Add Deal</h2>
+  <form id="dealForm">
+    <input type="email" name="email" placeholder="Customer Email" required><br>
+    <input type="text" name="dealName" placeholder="Deal Name" required><br>
+    <input type="text" name="stage" placeholder="Stage (e.g. Contacted, Won)" required><br>
+    <button type="submit">Add Deal</button>
+  </form>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycby_AzF1gqTl76c8OH3VZdDp2jdXzUKgmf3uJYriV7k3Nz1RAJTjpUYeboAUrGsgPuKD8A/exec";
+
+    document.getElementById("customerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      formData.append("action", "addCustomer");
+      await fetch(scriptURL, { method: "POST", body: formData });
+      alert("Customer added!");
+      e.target.reset();
+    });
+
+    document.getElementById("dealForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      formData.append("action", "addDeal");
+      await fetch(scriptURL, { method: "POST", body: formData });
+      alert("Deal added!");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
